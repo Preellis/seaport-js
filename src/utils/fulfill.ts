@@ -189,6 +189,8 @@ export async function fulfillBasicOrder({
   signer,
   tips = [],
   conduitKey = NO_CONDUIT,
+  maxFee,
+  maxPriority,
 }: {
   order: Order;
   seaportContract: Seaport;
@@ -200,6 +202,8 @@ export async function fulfillBasicOrder({
   signer: providers.JsonRpcSigner;
   tips?: ConsiderationItem[];
   conduitKey: string;
+  maxFee?: number;
+  maxPriority?: number;
 }): Promise<
   OrderUseCase<
     ExchangeAction<
@@ -280,7 +284,7 @@ export async function fulfillBasicOrder({
     zoneHash: order.parameters.zoneHash,
   };
 
-  const payableOverrides = { value: totalNativeAmount };
+  const payableOverrides = { value: totalNativeAmount, maxFeePerGas: maxFee, maxPriorityFeePerGas: maxPriority};
 
   const approvalActions = await getApprovalActions(
     insufficientApprovals,
