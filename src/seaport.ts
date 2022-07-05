@@ -587,6 +587,8 @@ export class Seaport {
     accountAddress,
     conduitKey = this.defaultConduitKey,
     recipientAddress = ethers.constants.AddressZero,
+    maxFee,
+    maxPriority,
   }: {
     order: OrderWithCounter;
     unitsToFill?: BigNumberish;
@@ -597,6 +599,8 @@ export class Seaport {
     accountAddress?: string;
     conduitKey?: string;
     recipientAddress?: string;
+    maxFee?: number,
+    maxPriority?: number,
   }): Promise<
     OrderUseCase<
       ExchangeAction<
@@ -688,6 +692,8 @@ export class Seaport {
         fulfillerOperator,
         signer: fulfiller,
         tips: tipConsiderationItems,
+        maxFee: maxFee,
+        maxPriority: maxPriority,
       });
     }
 
