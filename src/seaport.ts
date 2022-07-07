@@ -587,8 +587,8 @@ export class Seaport {
     accountAddress,
     conduitKey = this.defaultConduitKey,
     recipientAddress = ethers.constants.AddressZero,
-    maxFee,
-    maxPriority,
+    maxFee = 0,
+    maxPriority = 0,
   }: {
     order: OrderWithCounter;
     unitsToFill?: BigNumberish;
