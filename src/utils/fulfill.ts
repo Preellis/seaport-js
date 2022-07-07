@@ -211,6 +211,7 @@ export async function fulfillBasicOrder({
     >
   >
 > {
+  console.log("break 10")
   const { offer, consideration } = order.parameters;
   const considerationIncludingTips = [...consideration, ...tips];
 
@@ -227,7 +228,7 @@ export async function fulfillBasicOrder({
       "Order parameters did not result in a valid basic fulfillment"
     );
   }
-
+  console.log("break 11")
   const additionalRecipients = forAdditionalRecipients.map(
     ({ startAmount, recipient }) => ({
       amount: startAmount,
@@ -247,7 +248,7 @@ export async function fulfillBasicOrder({
       isConsiderationItem: true,
     },
   })[ethers.constants.AddressZero]?.["0"];
-
+  console.log("break 12")
   const insufficientApprovals = validateBasicFulfillBalancesAndApprovals({
     offer,
     consideration: considerationIncludingTips,
@@ -283,14 +284,14 @@ export async function fulfillBasicOrder({
     additionalRecipients,
     zoneHash: order.parameters.zoneHash,
   };
-
+  console.log("break 13")
   const payableOverrides = { value: totalNativeAmount, maxFeePerGas: maxFee, maxPriorityFeePerGas: maxPriority};
-
+  console.log("break 14")
   const approvalActions = await getApprovalActions(
     insufficientApprovals,
     signer
   );
-
+  console.log("break 15")
   const exchangeAction = {
     type: "exchange",
     transactionMethods: getTransactionMethods(
@@ -301,7 +302,7 @@ export async function fulfillBasicOrder({
   } as const;
 
   const actions = [...approvalActions, exchangeAction] as const;
-
+  console.log("break 16")
   return {
     actions,
     executeAllActions: () =>

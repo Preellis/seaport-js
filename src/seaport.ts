@@ -611,6 +611,7 @@ export class Seaport {
       >
     >
   > {
+    console.log("break 8")
     const { parameters: orderParameters } = order;
     const { offerer, offer, consideration } = orderParameters;
 
@@ -648,6 +649,7 @@ export class Seaport {
       this.multicallProvider.getBlock("latest"),
       this.getOrderStatus(this.getOrderHash(orderParameters)),
     ]);
+    console.log("break 9")
 
     const currentBlockTimestamp = currentBlock.timestamp;
 
@@ -672,7 +674,7 @@ export class Seaport {
     }));
 
     const isRecipientSelf = recipientAddress === ethers.constants.AddressZero;
-
+    console.log("break 6")
     // We use basic fulfills as they are more optimal for simple and "hot" use cases
     // We cannot use basic fulfill if user is trying to partially fill though.
     if (
@@ -680,6 +682,7 @@ export class Seaport {
       isRecipientSelf &&
       shouldUseBasicFulfill(sanitizedOrder.parameters, totalFilled)
     ) {
+      console.log("break 7")
       // TODO: Use fulfiller proxy if there are approvals needed directly, but none needed for proxy
       return fulfillBasicOrder({
         order: sanitizedOrder,
