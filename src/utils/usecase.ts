@@ -12,15 +12,18 @@ export const executeAllActions = async <
 >(
   actions: OrderUseCase<T>["actions"]
 ) => {
+  console.log("SuperBreak1")
   for (let i = 0; i < actions.length - 1; i++) {
     const action = actions[i];
+    console.log("SuperBreak2")
     if (action.type === "approval") {
+      console.log("SuperBreak3")
       await action.transactionMethods.transact();
     }
   }
-
+  console.log("SuperBreak4")
   const finalAction = actions[actions.length - 1] as T;
-
+  console.log("SuperBreak5")
   return finalAction.type === "create"
     ? await finalAction.createOrder()
     : await finalAction.transactionMethods.transact();
@@ -79,14 +82,14 @@ export const getTransactionMethods = <
     },
     estimateGas: (overrides?: Overrides) => {
       const mergedOverrides = { ...initialOverrides, ...overrides };
-
+      console.log("ESTIMATING")
       return contract.estimateGas[method as string](
         ...[...args, mergedOverrides]
       );
     },
     transact: (overrides?: Overrides) => {
       const mergedOverrides = { ...initialOverrides, ...overrides };
-
+      console.log("TRANSACTING")
       return contract[method as string](...args, mergedOverrides);
     },
     buildTransaction: (overrides?: Overrides) => {
