@@ -12,18 +12,14 @@ export const executeAllActions = async <
 >(
   actions: OrderUseCase<T>["actions"]
 ) => {
-  console.log("SuperBreak1")
   for (let i = 0; i < actions.length - 1; i++) {
     const action = actions[i];
-    console.log("SuperBreak2")
     if (action.type === "approval") {
-      console.log("SuperBreak3")
-      await action.transactionMethods.transact();
+      const tx = await action.transactionMethods.transact();
+      await tx.wait();
     }
   }
-  console.log("SuperBreak4")
   const finalAction = actions[actions.length - 1] as T;
-  console.log("SuperBreak5")
   return finalAction.type === "create"
     ? await finalAction.createOrder()
     : await finalAction.transactionMethods.transact();
